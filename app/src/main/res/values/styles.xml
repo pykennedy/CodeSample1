@@ -9,8 +9,21 @@
     </style>
 
 
-    <style name="ToolBar" parent="Theme.AppCompat">
+    <style name="ToolBar" parent="AppTheme">
         <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <style name="SplashHeader" parent="AppTheme">
+        <item name="android:textColor">@color/mcWhite87</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="SplashLink" parent="AppTheme">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
 </resources>
