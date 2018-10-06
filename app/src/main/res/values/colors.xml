@@ -4,12 +4,14 @@
     <color name="colorPrimaryDark">#1B1B1B</color>
     <color name="colorAccent">@color/mcYellow600</color>
 
+    <color name="mcBlack">#000000</color>
     <color name="mcBlack87">#DE000000</color>
     <color name="mcBlack60">#99000000</color>
     <color name="mcBlack38">#61000000</color>
     <color name="mcBlack26">#42000000</color>
     <color name="mcBlack12">#1E000000</color>
 
+    <color name="mcWhite">#FFFFFF</color>
     <color name="mcWhite87">#DEFFFFFF</color>
     <color name="mcWhite60">#99FFFFFF</color>
     <color name="mcWhite38">#61FFFFFF</color>
