@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@color/mcWhite"
+    android:elevation="2dp">
+
+    <View
+        android:id="@+id/v_poster_movieItem"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/mcBlack38"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="0.67:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_title_movieItem"
+        style="@style/ItemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="A Slightly Long Movie Title (2018)"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/v_poster_movieItem"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_restriction_movieItem"
+        style="@style/ItemDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="PG-13"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintStart_toEndOf="@+id/v_poster_movieItem"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_movieItem"/>
+
+    <TextView
+        android:id="@+id/tv_runtime_movieItem"
+        style="@style/ItemDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="123 min"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_restriction_movieItem"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_movieItem"/>
+
+    <TextView
+        android:id="@+id/tv_genres_movieItem"
+        style="@style/ItemDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Action | Horror | Sci-Fi"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_runtime_movieItem"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_movieItem"/>
+
+    <TextView
+        android:id="@+id/tv_rating_movieItem"
+        style="@style/ItemRating"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="8.49/10"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/v_poster_movieItem"
+        app:layout_constraintTop_toBottomOf="@+id/tv_restriction_movieItem"/>
+
+    <TextView
+        android:id="@+id/tv_overview_movieItem"
+        style="@style/ItemOverview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="A purple pig and a green donkey flew a kite in the middle of the night and ended up sunburnt I am counting my calories, yet I really want dessert. How was the math test?"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/v_poster_movieItem"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rating_movieItem"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

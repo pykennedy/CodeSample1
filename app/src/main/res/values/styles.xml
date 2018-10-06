@@ -32,5 +32,33 @@
     <style name="Divider" parent="AppTheme">
         <item name="android:background">@color/mcBlack12</item>
     </style>
+    
+    <style name="ItemTitle" parent="AppTheme">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/mcBlack87</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ItemDetails" parent="AppTheme">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/mcBlack38</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ItemRating" parent="AppTheme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="ItemOverview" parent="AppTheme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/mcBlack60</item>
+        <item name="android:maxLines">4</item>
+        <item name="android:minLines">4</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 
 </resources>
