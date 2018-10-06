@@ -15,18 +15,19 @@ import pyk.codesample1.view.adapter.MovieListItemAdapter;
 
 public class MainActivity extends AppCompatActivity {
   
+  RecyclerView recyclerView;
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     setSupportActionBar((Toolbar) findViewById(R.id.tb_mainActivity));
     getSupportActionBar().setTitle("Not IMDb");
-    RecyclerView recyclerView = findViewById(R.id.rv_movies_mainActivity);
-  
-    MovieListItemAdapter itemAdapter = new MovieListItemAdapter();
-    recyclerView.setAdapter(itemAdapter);
+    
+    recyclerView = findViewById(R.id.rv_movies_mainActivity);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
+    recyclerView.setAdapter(new MovieListItemAdapter());
   }
   
   @Override
@@ -45,4 +46,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
   }
+  
 }

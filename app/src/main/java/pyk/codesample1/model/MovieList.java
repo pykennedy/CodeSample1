@@ -26,7 +26,7 @@ public class MovieList {
     return instance;
   }
   
-  public void fakeData() {
+  private void fakeData() {
     List<String> genres = new ArrayList<>();
     genres.add("Action");
     genres.add("Comedy");

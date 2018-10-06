@@ -8,11 +8,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import pyk.codesample1.R;
-import pyk.codesample1.model.MovieList;
 import pyk.codesample1.model.item.MovieItem;
+import pyk.codesample1.presenter.adapter.MovieListItemAdapterPresenter;
 
 public class MovieListItemAdapter
     extends RecyclerView.Adapter<MovieListItemAdapter.ItemAdapterViewHolder> {
+  
+  // create reference to presenter which will handle non-android work.
+  private MovieListItemAdapterPresenter presenter = new MovieListItemAdapterPresenter();
+  
+  public MovieListItemAdapter() {
+    super();
+    // pull the first page of movies immediately
+    presenter.pullData(1);
+  }
   
   @NonNull @Override
   public ItemAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -23,12 +32,13 @@ public class MovieListItemAdapter
   
   @Override
   public void onBindViewHolder(@NonNull ItemAdapterViewHolder holder, int position) {
-    holder.update(MovieList.getInstance().getMovies().get(position));
+    // get movie from list of movies as recyclerview requests them
+    holder.update(presenter.getMovie(position));
   }
   
   @Override
   public int getItemCount() {
-    return MovieList.getInstance().getCount();
+    return presenter.getCount();
   }
   
   static class ItemAdapterViewHolder extends RecyclerView.ViewHolder {
