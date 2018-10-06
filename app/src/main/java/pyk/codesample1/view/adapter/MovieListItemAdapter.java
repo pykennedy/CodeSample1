@@ -14,7 +14,14 @@ import pyk.codesample1.presenter.adapter.MovieListItemAdapterPresenter;
 public class MovieListItemAdapter
     extends RecyclerView.Adapter<MovieListItemAdapter.ItemAdapterViewHolder> {
   
+  // create reference to presenter which will handle non-android work.
   private MovieListItemAdapterPresenter presenter = new MovieListItemAdapterPresenter();
+  
+  public MovieListItemAdapter() {
+    super();
+    // pull the first page of movies immediately
+    presenter.pullData(1);
+  }
   
   @NonNull @Override
   public ItemAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,6 +32,7 @@ public class MovieListItemAdapter
   
   @Override
   public void onBindViewHolder(@NonNull ItemAdapterViewHolder holder, int position) {
+    // get movie from list of movies as recyclerview requests them
     holder.update(presenter.getMovie(position));
   }
   

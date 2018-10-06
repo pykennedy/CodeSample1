@@ -9,7 +9,7 @@ public class MovieListItemAdapterContract {
   public interface MovieListItemAdapterPresenter {
     void populateMovieList();
     
-    void pullData();
+    void pullData(int page);
     
     void processList();
     
