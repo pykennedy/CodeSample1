@@ -3,11 +3,15 @@ package pyk.codesample1.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import pyk.codesample1.R;
+import pyk.codesample1.view.adapter.MovieListItemAdapter;
 
 public class MainActivity extends AppCompatActivity {
   
@@ -17,6 +21,12 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     setSupportActionBar((Toolbar) findViewById(R.id.tb_mainActivity));
     getSupportActionBar().setTitle("Not IMDb");
+    RecyclerView recyclerView = findViewById(R.id.rv_movies_mainActivity);
+  
+    MovieListItemAdapter itemAdapter = new MovieListItemAdapter();
+    recyclerView.setAdapter(itemAdapter);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setItemAnimator(new DefaultItemAnimator());
   }
   
   @Override
