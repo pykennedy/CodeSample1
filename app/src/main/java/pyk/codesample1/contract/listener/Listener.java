@@ -8,4 +8,8 @@ public class Listener {
   public interface VolleyListener {
     void volleyResponse(String response);
   }
+  
+  public interface ActivityProgressBarListener {
+    void listPopulated();
+  }
 }

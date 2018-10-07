@@ -9,14 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import pyk.codesample1.R;
+import pyk.codesample1.contract.listener.Listener;
 import pyk.codesample1.view.adapter.MovieListItemAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+    implements Listener.ActivityProgressBarListener {
   
   RecyclerView recyclerView;
-  
+  ProgressBar  progressBar;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -24,10 +28,12 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar((Toolbar) findViewById(R.id.tb_mainActivity));
     getSupportActionBar().setTitle("Not IMDb");
     
+    progressBar = findViewById(R.id.pb_mainActivity);
+    
     recyclerView = findViewById(R.id.rv_movies_mainActivity);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
-    recyclerView.setAdapter(new MovieListItemAdapter());
+    recyclerView.setAdapter(new MovieListItemAdapter(this));
   }
   
   @Override
@@ -47,4 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
   }
   
+  @Override public void listPopulated() {
+    progressBar.setVisibility(View.GONE);
+  }
 }

@@ -8,7 +8,13 @@ public class MovieItem {
   private List<Integer> genre_ids;
   private double        vote_average;
   private String        overview;
-  private String        parsedGenres;
+  private String        poster_path;
+  
+  public String getPoster_path() {
+    return poster_path;
+  }
+  
+  private String parsedGenres;
   
   public String getTitle() {
     return title;
