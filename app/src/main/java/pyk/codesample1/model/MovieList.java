@@ -11,7 +11,6 @@ public class MovieList {
   
   private MovieList() {
     movies = new ArrayList<>();
-    fakeData();
   }
   
   public List<MovieItem> getMovies() {
@@ -34,14 +33,7 @@ public class MovieList {
     genres.add("Romance");
     genres.add("Documentary");
     for (int i = 0; i < 30; i++) {
-      movies.add(new MovieItem("A Movie Title",
-                               "2018",
-                               "PG-13",
-                               123,
-                               genres,
-                               0.83,
-                               "A purple pig and a green donkey flew a kite in the middle of the night and ended up sunburnt I am counting my calories, yet I really want dessert. How was the math test?",
-                               "4359872348795623498756"));
+      movies.add(new MovieItem());
     }
   }
 }

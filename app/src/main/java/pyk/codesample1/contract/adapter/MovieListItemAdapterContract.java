@@ -4,14 +4,15 @@ import pyk.codesample1.model.item.MovieItem;
 
 public class MovieListItemAdapterContract {
   public interface MovieListItemAdapterView {
+    void triggerRefresh();
   }
   
   public interface MovieListItemAdapterPresenter {
-    void populateMovieList();
+    void notifyOfUpdates();
     
     void pullData(int page);
     
-    void processList();
+    void processList(String raw);
     
     MovieItem getMovie(int index);
     
