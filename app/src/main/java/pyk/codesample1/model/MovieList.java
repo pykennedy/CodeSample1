@@ -24,16 +24,4 @@ public class MovieList {
   public static MovieList getInstance() {
     return instance;
   }
-  
-  private void fakeData() {
-    List<String> genres = new ArrayList<>();
-    genres.add("Action");
-    genres.add("Comedy");
-    genres.add("Drama");
-    genres.add("Romance");
-    genres.add("Documentary");
-    for (int i = 0; i < 30; i++) {
-      movies.add(new MovieItem());
-    }
-  }
 }

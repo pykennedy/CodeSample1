@@ -5,6 +5,7 @@ import pyk.codesample1.model.item.MovieItem;
 public class MovieListItemAdapterContract {
   public interface MovieListItemAdapterView {
     void triggerRefresh();
+    
     void requestNextPage();
   }
   

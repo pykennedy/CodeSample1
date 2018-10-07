@@ -14,10 +14,11 @@ public class MovieListItemAdapterPresenter
                Listener.TMDbListener {
   
   private MovieListItemAdapterContract.MovieListItemAdapterView mliav;
-  private Listener.NetworkCallsListener listener;
+  private Listener.NetworkCallsListener                         listener;
   
   public MovieListItemAdapterPresenter(
-      MovieListItemAdapterContract.MovieListItemAdapterView mliav, Listener.NetworkCallsListener listener) {
+      MovieListItemAdapterContract.MovieListItemAdapterView mliav,
+      Listener.NetworkCallsListener listener) {
     this.mliav = mliav;
     this.listener = listener;
   }
@@ -32,22 +33,27 @@ public class MovieListItemAdapterPresenter
   
   @Override
   public void pullData(int page) {
-    // first pull the page user wants
-    // There will be other pulls that need to happen. Segregating for maintainability.
     TMDbHelper.getInstance().setListener(this);
     TMDbHelper.getInstance().getMovies(page);
   }
   
   @Override
   public void processList(String raw) {
-    Gson        gson = new Gson();
+    Gson gson = new Gson();
+    /*
+    due to the structure of TMDb JSON where all movie details are an entire node
+    and not broken out into a hierarchy of movie id, then details i'm forced to first
+    make a class that stores the whole json first, then pick out items.
+    see TMDbRawJson for what's going on
+    */
     TMDbRawJson json = gson.fromJson(raw, TMDbRawJson.class);
-    if(json == null) {
+    if (json == null) {
       return;
     }
     // convert raw json to MovieItem objects
     for (MovieItem mi : json.getResults()) {
       // convert genre ID's to a concatenated genre string: genre1 | genre2 | genre3
+      // using string builder for optimization
       StringBuilder genres = new StringBuilder("");
       for (int i : mi.getGenre_ids()) {
         if (genres.length() < 1) {
@@ -71,7 +77,7 @@ public class MovieListItemAdapterPresenter
   
   @Override
   public int getCount() {
-    return MovieList.getInstance().getMovies().size();
+    return MovieList.getInstance().getCount();
   }
   
   @Override public void tmdbResponse(String response) {
