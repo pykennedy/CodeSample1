@@ -20,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
       @Override public void onClick(View view) {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         SplashActivity.this.startActivity(intent);
+        // to prevent returning to this activity during onBackPressed()
         finish();
       }
     });

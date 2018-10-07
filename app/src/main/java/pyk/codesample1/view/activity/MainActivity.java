@@ -23,7 +23,7 @@ import pyk.codesample1.view.adapter.MovieListItemAdapter;
 public class MainActivity extends AppCompatActivity
     implements Listener.AdapterStatusListener {
   
-  ProgressBar progressBar;
+  ProgressBar        progressBar;
   SwipyRefreshLayout swipyRefreshLayout;
   
   @Override
@@ -32,18 +32,19 @@ public class MainActivity extends AppCompatActivity
     setContentView(R.layout.activity_main);
     setSupportActionBar((Toolbar) findViewById(R.id.tb_mainActivity));
     getSupportActionBar().setTitle("Not IMDb");
-  
+    
     progressBar = findViewById(R.id.pb_mainActivity);
-  
+    
     RecyclerView recyclerView = findViewById(R.id.rv_movies_mainActivity);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     final MovieListItemAdapter movieListItemAdapter = new MovieListItemAdapter(this);
     recyclerView.setAdapter(movieListItemAdapter);
-  
+    
     swipyRefreshLayout = findViewById(R.id.srl_movies_mainActivity);
     swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
       @Override public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        // if swiped, then ask for next page of data. let the adapter manage what pages
         movieListItemAdapter.requestNextPage();
       }
     });
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity
   }
   
   @Override public void listPopulated() {
-    if (swipyRefreshLayout != null) { // null check as it had crashed due to null pointer on time
-      swipyRefreshLayout.setRefreshing(false); // on fail, otherwise it will spin forever
+    if (swipyRefreshLayout != null) { // null check as it had crashed due to null pointer one time
+      swipyRefreshLayout.setRefreshing(false); // on success, otherwise it will spin forever
     }
     progressBar.setVisibility(View.GONE);
   }

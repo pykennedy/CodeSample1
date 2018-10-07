@@ -32,7 +32,7 @@ class VolleyHelper {
     ConnectivityManager cm = (ConnectivityManager) App.getContext().getSystemService(
         Context.CONNECTIVITY_SERVICE);
     
-    // getActiveNetworkInfo requires api 23+, and i'm targeting 21 so using this instead
+    // getActiveNetwork requires api 23+, and i'm targeting 21 so using this instead
     if (cm.getActiveNetworkInfo() == null) {
       listener.volleyError("You have no internet connection.");
     }
