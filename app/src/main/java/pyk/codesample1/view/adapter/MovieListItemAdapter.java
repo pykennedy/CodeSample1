@@ -24,13 +24,14 @@ public class MovieListItemAdapter
   // create reference to presenter which will handle non-android work.
   private MovieListItemAdapterPresenter  presenter;
   private Listener.AdapterStatusListener adapterStatusListener;
+  private int pageCount = 1;
   
   public MovieListItemAdapter(Listener.AdapterStatusListener adapterStatusListener) {
     super();
     // pull the first page of movies immediately
     presenter = new MovieListItemAdapterPresenter(this, this);
     this.adapterStatusListener = adapterStatusListener;
-    presenter.pullData(1);
+    presenter.pullData(pageCount);
   }
   
   @NonNull @Override
@@ -53,8 +54,13 @@ public class MovieListItemAdapter
   
   @Override
   public void triggerRefresh() {
+    pageCount++; // to ensure page count only incremented on success
     notifyDataSetChanged();
     adapterStatusListener.listPopulated();
+  }
+  
+  @Override public void requestNextPage() {
+    presenter.pullData(pageCount+1);
   }
   
   @Override public void networkError(String error) {

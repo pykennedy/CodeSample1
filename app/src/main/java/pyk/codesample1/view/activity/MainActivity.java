@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+
 import pyk.codesample1.R;
 import pyk.codesample1.contract.listener.Listener;
 import pyk.codesample1.view.adapter.MovieListItemAdapter;
@@ -20,21 +23,30 @@ import pyk.codesample1.view.adapter.MovieListItemAdapter;
 public class MainActivity extends AppCompatActivity
     implements Listener.AdapterStatusListener {
   
-  RecyclerView recyclerView;
-  ProgressBar  progressBar;
+  ProgressBar progressBar;
+  SwipyRefreshLayout swipyRefreshLayout;
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     setSupportActionBar((Toolbar) findViewById(R.id.tb_mainActivity));
     getSupportActionBar().setTitle("Not IMDb");
-    
+  
     progressBar = findViewById(R.id.pb_mainActivity);
-    
-    recyclerView = findViewById(R.id.rv_movies_mainActivity);
+  
+    RecyclerView recyclerView = findViewById(R.id.rv_movies_mainActivity);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
-    recyclerView.setAdapter(new MovieListItemAdapter(this));
+    final MovieListItemAdapter movieListItemAdapter = new MovieListItemAdapter(this);
+    recyclerView.setAdapter(movieListItemAdapter);
+  
+    swipyRefreshLayout = findViewById(R.id.srl_movies_mainActivity);
+    swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+      @Override public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        movieListItemAdapter.requestNextPage();
+      }
+    });
   }
   
   @Override
@@ -55,10 +67,16 @@ public class MainActivity extends AppCompatActivity
   }
   
   @Override public void listPopulated() {
+    if (swipyRefreshLayout != null) { // null check as it had crashed due to null pointer on time
+      swipyRefreshLayout.setRefreshing(false); // on fail, otherwise it will spin forever
+    }
     progressBar.setVisibility(View.GONE);
   }
   
   @Override public void networkError(String error) {
+    if (swipyRefreshLayout != null) {
+      swipyRefreshLayout.setRefreshing(false); // on fail, otherwise it will spin forever
+    }
     Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
   }
 }
