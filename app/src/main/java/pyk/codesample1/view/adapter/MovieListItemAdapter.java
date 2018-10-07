@@ -8,14 +8,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import pyk.codesample1.R;
+import pyk.codesample1.contract.adapter.MovieListItemAdapterContract;
 import pyk.codesample1.model.item.MovieItem;
 import pyk.codesample1.presenter.adapter.MovieListItemAdapterPresenter;
 
 public class MovieListItemAdapter
-    extends RecyclerView.Adapter<MovieListItemAdapter.ItemAdapterViewHolder> {
+    extends RecyclerView.Adapter<MovieListItemAdapter.ItemAdapterViewHolder>
+    implements MovieListItemAdapterContract.MovieListItemAdapterView {
   
   // create reference to presenter which will handle non-android work.
-  private MovieListItemAdapterPresenter presenter = new MovieListItemAdapterPresenter();
+  private MovieListItemAdapterPresenter presenter = new MovieListItemAdapterPresenter(this);
   
   public MovieListItemAdapter() {
     super();
@@ -41,20 +43,39 @@ public class MovieListItemAdapter
     return presenter.getCount();
   }
   
+  @Override
+  public void triggerRefresh() {
+    notifyDataSetChanged();
+  }
+  
   static class ItemAdapterViewHolder extends RecyclerView.ViewHolder {
     TextView title;
-    TextView releaseDate;
+    TextView genres;
+    TextView rating;
     TextView overview;
     
     public ItemAdapterViewHolder(View itemView) {
       super(itemView);
       title = itemView.findViewById(R.id.tv_title_movieItem);
-      //releaseDate = itemView.findViewById(R.id.tv_releaseDate_movieItem);
+      genres = itemView.findViewById(R.id.tv_genres_movieItem);
+      rating = itemView.findViewById(R.id.tv_rating_movieItem);
       overview = itemView.findViewById(R.id.tv_overview_movieItem);
     }
     
     void update(MovieItem movieItem) {
-      // TODO: set text, etc.
+      String releaseDate = null;
+      if(movieItem.getRelease_date() != null) {
+        releaseDate = movieItem.getRelease_date().substring(0,4);
+      }
+      String titleText    = movieItem.getTitle() + " (" + releaseDate + ")";
+      String genresText   = movieItem.getParsedGenres();
+      String ratingText   = Double.toString(movieItem.getVote_average());
+      String overviewText = movieItem.getOverview();
+      
+      title.setText(titleText);
+      genres.setText(genresText);
+      rating.setText(ratingText);
+      overview.setText(overviewText);
     }
   }
 }

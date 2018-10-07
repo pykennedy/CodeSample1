@@ -1,21 +1,30 @@
 package pyk.codesample1.presenter.adapter;
 
-import android.util.Log;
+import com.google.gson.Gson;
 
 import pyk.codesample1.contract.adapter.MovieListItemAdapterContract;
 import pyk.codesample1.contract.listener.Listener;
 import pyk.codesample1.helper.TMDbHelper;
 import pyk.codesample1.model.MovieList;
+import pyk.codesample1.model.TMDbRawJson;
 import pyk.codesample1.model.item.MovieItem;
 
 public class MovieListItemAdapterPresenter
     implements MovieListItemAdapterContract.MovieListItemAdapterPresenter,
                Listener.TMDbListener {
   
+  private MovieListItemAdapterContract.MovieListItemAdapterView mliav;
+  
+  public MovieListItemAdapterPresenter(
+      MovieListItemAdapterContract.MovieListItemAdapterView mliav) {
+    this.mliav = mliav;
+  }
+  
   @Override
-  public void populateMovieList() {
+  public void notifyOfUpdates() {
     //TODO: after json is processed, update MovieList with  MovieItems
     //TODO: i think i'll need a reference to the adapter to notifydatasetchanged() here as well
+    mliav.triggerRefresh();
   }
   
   @Override
@@ -26,9 +35,28 @@ public class MovieListItemAdapterPresenter
   }
   
   @Override
-  public void processList() {
+  public void processList(String raw) {
     // TODO: process the raw json
     // TODO: then pull the poster for each movie
+    Gson        gson = new Gson();
+    TMDbRawJson json = gson.fromJson(raw, TMDbRawJson.class);
+    // convert raw json to MovieItem objects
+    for (MovieItem mi : json.getResults()) {
+      // convert genre ID's to a concatenated genre string: genre1 | genre2 | genre3
+      StringBuilder genres = new StringBuilder("");
+      for (int i : mi.getGenre_ids()) {
+        if (genres.length() < 1) {
+          genres.append(TMDbHelper.getInstance().getGenre(i));
+        } else {
+          genres.append(" | ");
+          genres.append(TMDbHelper.getInstance().getGenre(i));
+        }
+      }
+      mi.setParsedGenres(genres.toString());
+      
+      MovieList.getInstance().getMovies().add(mi);
+    }
+    notifyOfUpdates();
   }
   
   @Override
@@ -61,7 +89,6 @@ public class MovieListItemAdapterPresenter
   
   @Override public void tmdbResponse(String response) {
     //TODO: get list of movies, then query for each movies poster
-    //TODO: perhaps i'll also need to grab movies individually, we'll see
-    Log.e("asdf", response);
+    processList(response);
   }
 }
