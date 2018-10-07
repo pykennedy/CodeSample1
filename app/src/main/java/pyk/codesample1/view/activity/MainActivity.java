@@ -11,13 +11,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import pyk.codesample1.R;
 import pyk.codesample1.contract.listener.Listener;
 import pyk.codesample1.view.adapter.MovieListItemAdapter;
 
 public class MainActivity extends AppCompatActivity
-    implements Listener.ActivityProgressBarListener {
+    implements Listener.AdapterStatusListener {
   
   RecyclerView recyclerView;
   ProgressBar  progressBar;
@@ -55,5 +56,9 @@ public class MainActivity extends AppCompatActivity
   
   @Override public void listPopulated() {
     progressBar.setVisibility(View.GONE);
+  }
+  
+  @Override public void networkError(String error) {
+    Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
   }
 }

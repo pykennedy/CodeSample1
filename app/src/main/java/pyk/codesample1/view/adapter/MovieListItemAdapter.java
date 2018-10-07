@@ -19,17 +19,18 @@ import pyk.codesample1.presenter.adapter.MovieListItemAdapterPresenter;
 
 public class MovieListItemAdapter
     extends RecyclerView.Adapter<MovieListItemAdapter.ItemAdapterViewHolder>
-    implements MovieListItemAdapterContract.MovieListItemAdapterView {
+    implements MovieListItemAdapterContract.MovieListItemAdapterView, Listener.NetworkCallsListener {
   
   // create reference to presenter which will handle non-android work.
-  private MovieListItemAdapterPresenter presenter = new MovieListItemAdapterPresenter(this);
-  private Listener.ActivityProgressBarListener progressBarListener;
+  private MovieListItemAdapterPresenter  presenter;
+  private Listener.AdapterStatusListener adapterStatusListener;
   
-  public MovieListItemAdapter(Listener.ActivityProgressBarListener progressBarListener) {
+  public MovieListItemAdapter(Listener.AdapterStatusListener adapterStatusListener) {
     super();
     // pull the first page of movies immediately
+    presenter = new MovieListItemAdapterPresenter(this, this);
+    this.adapterStatusListener = adapterStatusListener;
     presenter.pullData(1);
-    this.progressBarListener = progressBarListener;
   }
   
   @NonNull @Override
@@ -53,7 +54,11 @@ public class MovieListItemAdapter
   @Override
   public void triggerRefresh() {
     notifyDataSetChanged();
-    progressBarListener.listPopulated();
+    adapterStatusListener.listPopulated();
+  }
+  
+  @Override public void networkError(String error) {
+    adapterStatusListener.networkError(error);
   }
   
   static class ItemAdapterViewHolder extends RecyclerView.ViewHolder {

@@ -14,10 +14,12 @@ public class MovieListItemAdapterPresenter
                Listener.TMDbListener {
   
   private MovieListItemAdapterContract.MovieListItemAdapterView mliav;
+  private Listener.NetworkCallsListener listener;
   
   public MovieListItemAdapterPresenter(
-      MovieListItemAdapterContract.MovieListItemAdapterView mliav) {
+      MovieListItemAdapterContract.MovieListItemAdapterView mliav, Listener.NetworkCallsListener listener) {
     this.mliav = mliav;
+    this.listener = listener;
   }
   
   /*
@@ -74,5 +76,9 @@ public class MovieListItemAdapterPresenter
   
   @Override public void tmdbResponse(String response) {
     processList(response);
+  }
+  
+  @Override public void tmdbError(String error) {
+    listener.networkError(error);
   }
 }
