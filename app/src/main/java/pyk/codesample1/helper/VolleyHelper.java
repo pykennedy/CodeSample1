@@ -1,5 +1,8 @@
 package pyk.codesample1.helper;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,6 +29,14 @@ class VolleyHelper {
   void setListener(Listener.VolleyListener listener) { this.listener = listener; }
   
   void sendRequest(String url) {
+    ConnectivityManager cm = (ConnectivityManager) App.getContext().getSystemService(
+        Context.CONNECTIVITY_SERVICE);
+    
+    // getActiveNetworkInfo requires api 23+, and i'm targeting 21 so using this instead
+    if (cm.getActiveNetworkInfo() == null) {
+      listener.volleyError("You have no internet connection.");
+    }
+    
     StringRequest request =
         new StringRequest(Request.Method.GET, url,
                           new Response.Listener<String>() {

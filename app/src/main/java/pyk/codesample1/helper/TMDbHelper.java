@@ -65,4 +65,8 @@ public class TMDbHelper implements Listener.VolleyListener {
   @Override public void volleyResponse(String response) {
     listener.tmdbResponse(response);
   }
+  
+  @Override public void volleyError(String error) {
+    listener.tmdbError(error);
+  }
 }
