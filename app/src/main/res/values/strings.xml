@@ -7,4 +7,5 @@
     <string name="tv_description_aboutActivity">Not IMDb is a code sample. It gathers movie data from the online database TMDb. It then displays that data in a RecyclerView.</string>
     <string name="tv_tmdbCredits_aboutActivity">All data is pulled from The Movie Database (TMDb).</string>
     <string name="tv_iconCredits_aboutActivity">Icons are from Google\'s Material Design Icon Library.</string>
+    <string name="iv_poster_movieItem">Movie Poster</string>
 </resources>
